@@ -1,4 +1,5 @@
-import { Controller, Get, Post } from '@nestjs/common'
+import { Controller, Get, Post, Req, Res } from '@nestjs/common'
+import { Request, Response } from 'express'
 import { AppService } from './app.service'
 
 @Controller('vcont')
@@ -11,7 +12,8 @@ export class AppController {
   }
 
   @Post('vmet')
-  postHello(): string {
-    return 'eeeee'
+  postHello(@Req() request: Request, @Res() response: Response) {
+    console.log('QQQQQQQQQQ', request)
+    return response.json({ foo: 'bar' }).send()
   }
 }
