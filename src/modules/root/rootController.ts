@@ -1,10 +1,10 @@
 import { Controller, Get, Post, Req, Res, Query, Body } from '@nestjs/common'
 import { Request, Response } from 'express'
-import { AppService } from './app.service'
+import { RootService } from './rootService'
 
 @Controller('vcont')
-export class AppController {
-  constructor(private readonly appService: AppService) {}
+export class RootController {
+  constructor(private readonly appService: RootService) {}
 
   @Get()
   getHello(): string {
