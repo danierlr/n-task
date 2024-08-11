@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Req, Res } from '@nestjs/common'
+import { Controller, Get, Post, Req, Res, Query, Body } from '@nestjs/common'
 import { Request, Response } from 'express'
 import { AppService } from './app.service'
 
@@ -12,8 +12,8 @@ export class AppController {
   }
 
   @Post('vmet')
-  postHello(@Req() request: Request, @Res() response: Response) {
-    console.log('QQQQQQQQQQ', request)
+  postHello(@Req() request: Request, @Res() response: Response, @Query() query: any, @Body() body: any) {
+    console.log('QQQQQQQQQQ', query, body)
     return response.json({ foo: 'bar' }).send()
   }
 }
