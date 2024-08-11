@@ -1,6 +1,6 @@
-import Cache from './Cache'
+import { Cache, CacheKey } from '.'
 
-export default class CacheLru<TKey extends string | number, TValue> implements Cache<TKey, TValue> {
+export default class CacheLru<TKey extends CacheKey, TValue> implements Cache<TKey, TValue> {
   public constructor(
     public readonly maxCount: number,
     public readonly timeToLiveMs: number,
