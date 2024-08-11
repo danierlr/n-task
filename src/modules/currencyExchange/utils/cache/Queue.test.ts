@@ -34,11 +34,11 @@ describe('Queue size tracking', () => {
     queue.insertHead('bbbbb')
     queue.insertHead('kk')
 
-    queue.remove('bbbbb')
+    queue.delete('bbbbb')
     expect(queue.size).toBe(2)
 
-    queue.remove('aaa')
-    queue.remove('kk')
+    queue.delete('aaa')
+    queue.delete('kk')
     expect(queue.size).toBe(0)
   })
 })
@@ -56,7 +56,7 @@ describe('Queue adding removing wrong elements', () => {
     expect(() => {
       const queue = new Queue<string>()
       queue.insertHead('abc')
-      queue.remove('de')
+      queue.delete('de')
     }).toThrow()
   })
 })
@@ -85,7 +85,7 @@ describe('Queue elements tracking', () => {
     queue.insertHead('aa')
     queue.insertHead('bb')
     queue.insertHead('cc')
-    queue.remove('aa')
+    queue.delete('aa')
 
     expect(queue.tail).toBe('bb')
   })
@@ -97,8 +97,8 @@ describe('Queue elements tracking', () => {
 
     queue.insertHead('aa')
     queue.insertHead('bb')
-    queue.remove('aa')
-    queue.remove('bb')
+    queue.delete('aa')
+    queue.delete('bb')
 
     expect(queue.tail).toBe(null)
   })

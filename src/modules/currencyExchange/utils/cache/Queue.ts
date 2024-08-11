@@ -34,7 +34,7 @@ export class Queue<T extends CacheKey> {
     this._mapValueToNode.set(value, newNode)
   }
 
-  public remove(value: T) {
+  public delete(value: T) {
     const node = this._mapValueToNode.get(value)
 
     if (!node) {
