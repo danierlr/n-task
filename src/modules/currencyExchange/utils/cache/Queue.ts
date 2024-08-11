@@ -43,16 +43,17 @@ export class Queue<T extends CacheKey> {
 
     if (node.towardsHead) {
       node.towardsHead.towardsTail = node.towardsTail
-    }
-    if (node.towardsTail) {
-      node.towardsTail.towardsHead = node.towardsHead
+    } else {
+      this._head = node.towardsTail
     }
 
-    if (this._head === node) {
-      if (this._head.towardsTail) {
-        this._head.towardsTail.towardsHead = null
-      }
+    if (node.towardsTail) {
+      node.towardsTail.towardsHead = node.towardsHead
+    } else {
+      this._tail = node.towardsHead
     }
+
+    this._mapValueToNode.delete(value)
   }
 
   public get tail(): T | null {
