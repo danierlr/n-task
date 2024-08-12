@@ -27,22 +27,21 @@ describe('CacheLru instantiation tests', () => {
       const cache = new CacheLru<string, string>(1, -1)
     }).toThrow()
   })
-
 })
 
-describe('CacheLru instantiation tests', () => {
-  const START_TIME
-  beforeAll(() => {
-    jest.spyOn
-  })
+// describe('CacheLru instantiation tests', () => {
+//   const START_TIME
+//   beforeAll(() => {
+//     jest.spyOn
+//   })
 
-  it('first added element should be tail', () => {
-    const queue = new Queue<string>()
+//   it('first added element should be tail', () => {
+//     const queue = new Queue<string>()
 
-    queue.insertHead('aa')
-    queue.insertHead('bb')
-    queue.insertHead('cc')
+//     queue.insertHead('aa')
+//     queue.insertHead('bb')
+//     queue.insertHead('cc')
 
-    expect(queue.tail).toBe('aa')
-  })
-})
+//     expect(queue.tail).toBe('aa')
+//   })
+// })

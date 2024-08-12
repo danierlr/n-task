@@ -84,7 +84,10 @@ export class CacheLru<TKey extends CacheKey, TValue> implements Cache<TKey, TVal
     }
 
     this._mapKeyToCacheEntry.set(key, newEntry)
-    this._queueTime.insertHead(key)
     this._queueUsage.insertHead(key)
+
+    if (this.timeToLiveMs !== INFINITE_TTL_MS) {
+      this._queueTime.insertHead(key)
+    }
   }
 }
