@@ -14,6 +14,9 @@ export class CacheLru<TKey extends CacheKey, TValue> implements Cache<TKey, TVal
     if (timeToLiveMs < 0) {
       throw new Error('timeToLiveMs can not be less than 0')
     }
+
+    this.get.bind(this)
+    this.set.bind(this)
   }
 
   private _queueTime: Queue<TKey> = new Queue()
@@ -26,6 +29,10 @@ export class CacheLru<TKey extends CacheKey, TValue> implements Cache<TKey, TVal
     this._queueUsage.delete(key)
   }
 
+  private _currentTimeEpochMs(): number {
+    return globalThis.Date.now()
+  }
+
   public get(key: TKey): TValue | null {
     const cacheEntry = this._mapKeyToCacheEntry.get(key)
 
@@ -33,7 +40,7 @@ export class CacheLru<TKey extends CacheKey, TValue> implements Cache<TKey, TVal
       return null
     }
 
-    const timeNow = Date.now()
+    const timeNow = this._currentTimeEpochMs()
     if (this.timeToLiveMs !== INFINITE_TTL_MS && timeNow > cacheEntry.timeCreatedEpohMs + this.timeToLiveMs) {
       this._deleteEntry(key)
       return null
@@ -61,7 +68,7 @@ export class CacheLru<TKey extends CacheKey, TValue> implements Cache<TKey, TVal
         const oldestKey = this._queueTime.tail!
         const oldestEntry = this._mapKeyToCacheEntry.get(oldestKey)!
 
-        const timeNow = Date.now()
+        const timeNow = this._currentTimeEpochMs()
         if (timeNow > oldestEntry.timeCreatedEpohMs + this.timeToLiveMs) {
           keyToDelete = oldestEntry.key
         }
@@ -78,7 +85,7 @@ export class CacheLru<TKey extends CacheKey, TValue> implements Cache<TKey, TVal
     }
 
     const newEntry: CacheEntry<TKey, TValue> = {
-      timeCreatedEpohMs: Date.now(),
+      timeCreatedEpohMs: this._currentTimeEpochMs(),
       key,
       value,
     }

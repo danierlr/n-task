@@ -1,7 +1,10 @@
 import { QueueNode, CacheKey } from '.'
 
 export class Queue<T extends CacheKey> {
-  constructor() {}
+  constructor() {
+    this.insertHead.bind(this)
+    this.delete.bind(this)
+  }
 
   private _head: QueueNode<T> | null = null
   private _tail: QueueNode<T> | null = null

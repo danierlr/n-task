@@ -1,5 +1,16 @@
-import jest from 'jest'
 import { CacheLru } from '.'
+
+//
+;(globalThis as any).Date = {
+  now: jest.fn(() => {
+    console.log('mock Date.now')
+    return 100
+  }),
+}
+
+const mockCurrentTime = (timeMs: number) => {
+  ;(globalThis as any).Date.now.mockImplementation(() => timeMs)
+}
 
 describe('CacheLru instantiation tests', () => {
   it('should instantiate', () => {
@@ -29,19 +40,54 @@ describe('CacheLru instantiation tests', () => {
   })
 })
 
-// describe('CacheLru instantiation tests', () => {
-//   const START_TIME
-//   beforeAll(() => {
-//     jest.spyOn
-//   })
+describe('CacheLru tests', () => {
+  beforeEach(() => {
+    jest.clearAllMocks()
+  })
 
-//   it('first added element should be tail', () => {
-//     const queue = new Queue<string>()
+  it('should return cached value', () => {
+    const cache = new CacheLru<string, string>(5, 1000)
 
-//     queue.insertHead('aa')
-//     queue.insertHead('bb')
-//     queue.insertHead('cc')
+    cache.set('foo', 'bar')
 
-//     expect(queue.tail).toBe('aa')
-//   })
-// })
+    expect(cache.get('foo')).toBe('bar')
+    expect(cache.get('foo')).toBe('bar')
+    expect(cache.get('foo')).toBe('bar')
+  })
+
+  it('should return cached value before it becomes stale', () => {
+    const cache = new CacheLru<string, string>(5, 1000)
+    cache.set('foo', 'bar')
+
+    mockCurrentTime(500)
+
+    expect(cache.get('foo')).toBe('bar')
+    expect(cache.get('foo')).toBe('bar')
+    expect(cache.get('foo')).toBe('bar')
+  })
+
+  it('should not return stale value', () => {
+    const cache = new CacheLru<string, string>(5, 1000)
+
+    cache.set('foo', 'bar')
+    mockCurrentTime(1500)
+
+    expect(cache.get('foo')).toBe(null)
+  })
+
+  it('should return null for non existing element', () => {
+    const cache = new CacheLru<string, string>(5, 1000)
+
+    cache.set('foo', 'bar')
+
+    expect(cache.get('bax')).toBe(null)
+  })
+
+  it('should return null for non existing element', () => {
+    const cache = new CacheLru<string, string>(5, 1000)
+
+    cache.set('foo', 'bar')
+
+    expect(cache.get('bax')).toBe(null)
+  })
+})

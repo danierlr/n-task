@@ -21,6 +21,8 @@ Proxy for https://exchangerate-api.com.
 2. (optional) copy _.env.example_ as _.env_ and adjust configuration as necessary and change ```port``` in dockerfile if necessary
 3. run ```docker build -t n-task .``` to build a docker image
 4. run ```docker run -p 3000:3000 --name n-task-instance n-task``` to run docker container
+5. (optional) perform a request to ```http://localhost:3000/api/v1/status``` to make sure service is working, adjust port if necessary
+6. perform an example request to ```http://localhost:3000/api/v1/quote?baseCurrency=EUR&quoteCurrency=USD&baseAmount=200``` or similar
 
 ## Test
 
