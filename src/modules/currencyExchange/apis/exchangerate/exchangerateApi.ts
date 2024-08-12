@@ -6,6 +6,8 @@ export const exchangerateApi = {
   getCurrencyExchangeRates: async (currencyCode: string): Promise<ExchangerateResponseDto> => {
     const url = `${exchangerateConsts.baseUrl}v4/latest/${currencyCode}`
 
+    console.log('doing api', currencyCode)
+
     const response = await fetch(url, {
       method: 'GET',
     })

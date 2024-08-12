@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js'
 
-export interface QuoteResponseDto {
+export class QuoteResponseDto {
   exchangeRate: Decimal
   quoteAmount: Decimal
 }
