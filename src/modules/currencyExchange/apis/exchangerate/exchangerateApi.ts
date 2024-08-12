@@ -1,9 +1,9 @@
 import Decimal from 'decimal.js'
 import { exchangerateConsts } from './exchangerateConsts'
-import { ExchangerateResponse } from './ExchangerateResponse'
+import { ExchangerateResponseDto } from './ExchangerateResponseDto'
 
 export const exchangerateApi = {
-  getCurrencyExchangeRates: async (currencyCode: string): Promise<ExchangerateResponse> => {
+  getCurrencyExchangeRates: async (currencyCode: string): Promise<ExchangerateResponseDto> => {
     const url = `${exchangerateConsts.baseUrl}v4/latest/${currencyCode}`
 
     const response = await fetch(url, {
