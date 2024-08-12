@@ -42,7 +42,7 @@ describe('CacheLru instantiation tests', () => {
 
 describe('CacheLru tests', () => {
   beforeEach(() => {
-    jest.clearAllMocks()
+    mockCurrentTime(100)
   })
 
   it('should return cached value', () => {
