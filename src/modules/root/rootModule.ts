@@ -1,12 +1,10 @@
 import { Module } from '@nestjs/common'
-import { RootController } from './rootController'
-import { RootService } from './rootService'
-import { CurrencyExchangeModule } from '../currencyExchange/currencyExchangeModule'
-import { configModule } from '../config/configModule'
+import { CurrencyExchangeModule } from '../currencyExchange/CurrencyExchangeModule'
+import { ConfigModule } from '../config/ConfigModule'
 
 @Module({
-  imports: [CurrencyExchangeModule, configModule],
-  controllers: [RootController],
-  providers: [RootService],
+  imports: [CurrencyExchangeModule, ConfigModule],
+  controllers: [],
+  providers: [],
 })
 export class RootModule {}

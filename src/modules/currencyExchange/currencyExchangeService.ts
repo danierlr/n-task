@@ -2,15 +2,26 @@ import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
 import { QuoteRequest } from './models/QuoteRequest'
 import { QuoteResponse } from './models/QuoteResponse'
-import { withCache, CacheLru, Cache } from './utils/cache'
-import { exchangerateApi } from './apis/exchangerate/exchangerateApi'
+import { ExchangesRateService } from './ExchangeRatesService'
 
 @Injectable()
 export class CurrencyExchangeService {
-  constructor(private configService: ConfigService) {}
-  // private _cache: Cache = new CacheLru(100, 0)
+  constructor(private exchangeRateService: ExchangesRateService) {}
 
-  getQuery(): string {
-    return 'get_query' + this.configService.get<string>('NFOO')
+  async getQuote(request: QuoteRequest): Promise<QuoteResponse | null> {
+    const rates = await this.exchangeRateService.getExchangeRates(request.baseCurrency)
+
+    const exchangeRate = rates.quoteCurrencyRates[request.quoteCurrency]
+
+    if (!exchangeRate) {
+      return null
+    }
+
+    const quoteAmount = exchangeRate.mul(request.baseAmount).floor()
+
+    return {
+      exchangeRate,
+      quoteAmount,
+    }
   }
 }
