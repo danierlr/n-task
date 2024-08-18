@@ -1,13 +1,12 @@
 import { Controller, Get, Post, Req, Res, Query, Body, ValidationPipe, BadRequestException } from '@nestjs/common'
 import { Request, Response } from 'express'
-import { CurrencyCode } from './consts/CurrencyCode'
-import { CurrencyExchangeService } from './CurrencyExchangeService'
-import { supportedCurrencyCodes } from './consts/supportedCurrencies'
+import { CurrencyCode } from '../consts/CurrencyCode'
+import { CurrencyExchangeService } from '../application/services/CurrencyExchangeService'
+import { supportedCurrencyCodes } from '../consts/supportedCurrencies'
 import { QuoteQueryDto } from './dtos/v1/QuoteQueryDto'
 import { QuoteResponseDto } from './dtos/v1/QuoteResponseDto'
 import Decimal from 'decimal.js'
-import { QuoteRequest } from './models/QuoteRequest'
-import { QuoteResult } from './models/QuoteResult'
+import { QuoteResult } from '../application/models/QuoteResult'
 import { QuoteResponseConversions } from './dtos/v1/QuoteResponseConversions'
 
 @Controller('api/v1')
@@ -42,7 +41,7 @@ export class CurrencyExchangeController {
       })
     } catch (error) {
       throw new BadRequestException(
-        `error while attemting to get conversion details from ${baseCurrency} to ${quoteCurrency}`,
+        `error while attempting to get conversion details from ${baseCurrency} to ${quoteCurrency}`,
       )
     }
 

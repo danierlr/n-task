@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { CurrencyExchangeController } from './CurrencyExchangeController'
-import { CurrencyExchangeService } from './CurrencyExchangeService'
-import { ExchangesRateService } from './ExchangeRatesService'
+import { CurrencyExchangeController } from './infrastructure/CurrencyExchangeController'
+import { CurrencyExchangeService } from './application/services/CurrencyExchangeService'
+import { ExchangesRateService } from './application/services/ExchangeRatesService'
 
 @Module({
   imports: [],

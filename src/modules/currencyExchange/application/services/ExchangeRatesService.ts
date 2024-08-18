@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { ExchangeRates } from './models/ExchangeRates'
-import { CurrencyCode } from './consts/CurrencyCode'
-import { exchangerateApi } from './apis/exchangerate/exchangerateApi'
-import { withCache, CacheLru, Cache } from './utils/cache'
+import { ExchangeRates } from '../models/ExchangeRates'
+import { CurrencyCode } from '../../consts/CurrencyCode'
+import { exchangerateApi } from '../../data/apis/exchangerate/exchangerateApi'
+import { withCache, CacheLru, Cache } from '../utils/cache'
 
 @Injectable()
 export class ExchangesRateService {

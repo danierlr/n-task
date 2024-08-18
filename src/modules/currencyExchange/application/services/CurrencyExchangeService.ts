@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { ConfigService } from '@nestjs/config'
-import { QuoteRequest } from './models/QuoteRequest'
-import { QuoteResult } from './models/QuoteResult'
+import { QuoteRequest } from '../models/QuoteRequest'
+import { QuoteResult } from '../models/QuoteResult'
 import { ExchangesRateService } from './ExchangeRatesService'
 
 @Injectable()

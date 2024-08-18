@@ -1,5 +1,5 @@
 import Decimal from 'decimal.js'
-import { QuoteResult } from '../../models/QuoteResult'
+import { QuoteResult } from '../../../application/models/QuoteResult'
 import { QuoteResponseDto } from './QuoteResponseDto'
 
 export class QuoteResponseConversions {
