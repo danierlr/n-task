@@ -15,8 +15,8 @@ export class CacheLru<TKey extends CacheKey, TValue> implements Cache<TKey, TVal
       throw new Error('timeToLiveMs can not be less than 0')
     }
 
-    this.get.bind(this)
-    this.set.bind(this)
+    this.get = this.get.bind(this)
+    this.set = this.set.bind(this)
   }
 
   private _queueTime: Queue<TKey> = new Queue()
