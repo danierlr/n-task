@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Req, Res, Query, Body, ValidationPipe, BadRequestException } from '@nestjs/common'
+import {
+  Controller,
+  Get,
+  Post,
+  Req,
+  Res,
+  Query,
+  Body,
+  ValidationPipe,
+  BadRequestException,
+  InternalServerErrorException,
+} from '@nestjs/common'
 import { Request, Response } from 'express'
 import { CurrencyCode } from '../consts/CurrencyCode'
 import { CurrencyExchangeService } from '../application/services/CurrencyExchangeService'
@@ -40,7 +51,7 @@ export class CurrencyExchangeController {
         baseAmount,
       })
     } catch (error) {
-      throw new BadRequestException(
+      throw new InternalServerErrorException(
         `error while attempting to get conversion details from ${baseCurrency} to ${quoteCurrency}`,
       )
     }
